@@ -48,6 +48,10 @@ app-example
 # Local file - for private using only
 claude-project-instructions.md
 
+# Temporary files
+
+index_old.tsx
+
 # Secrets and environment variables
 .env
 .env.*
