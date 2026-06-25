@@ -41,3 +41,14 @@ app-example
 # generated native folders
 /ios
 /android
+
+
+# --- My Addings ---
+
+# Local file - for private using only
+claude-project-instructions.md
+
+# Secrets and environment variables
+.env
+.env.*
+!.env.example
