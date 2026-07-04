@@ -5,7 +5,7 @@ export default function firstStack() {
   const router = useRouter();
 
   return (
-    <View>
+    <View className="flex-1 items-center justify-center">
       <Button onPress={() => router.push("/plants")} title="Go to Plants" />
       <Button
         onPress={() => router.push("/add-plant")}
