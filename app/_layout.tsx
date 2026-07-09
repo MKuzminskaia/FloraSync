@@ -5,6 +5,8 @@ import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import "../global.css";
 
+import "../lib/db";
+
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { NAV_THEME } from "@/lib/theme";
 
