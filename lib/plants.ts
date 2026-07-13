@@ -15,15 +15,14 @@ export function getAllPlants(): Plant[] {
   );
 }
 
-export function AddNewPlant(plant: Omit<Plant, "id">) {
-  db.runSync(
+export function addNewPlant(plant: Omit<Plant, "id">): number {
+  const result = db.runSync(
     "INSERT INTO plants (species_id, nickname, location, photo_url, pot_changed_at) VALUES (?,?,?,?,?)",
-    [
-      plant.speciesId ?? null,
-      plant.nickname,
-      plant.location ?? null,
-      plant.photoUrl ?? null,
-      plant.potChangedAt ?? null,
-    ],
+    plant.speciesId ?? null,
+    plant.nickname,
+    plant.location ?? null,
+    plant.photoUrl ?? null,
+    plant.potChangedAt ?? null,
   );
+  return result.lastInsertRowId;
 }
