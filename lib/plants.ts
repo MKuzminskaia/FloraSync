@@ -15,6 +15,7 @@ export function getAllPlants(): Plant[] {
   );
 }
 
+//Insert new plant and return id number of inserted plant
 export function addNewPlant(plant: Omit<Plant, "id">): number {
   const result = db.runSync(
     "INSERT INTO plants (species_id, nickname, location, photo_url, pot_changed_at) VALUES (?,?,?,?,?)",
@@ -25,4 +26,13 @@ export function addNewPlant(plant: Omit<Plant, "id">): number {
     plant.potChangedAt ?? null,
   );
   return result.lastInsertRowId;
+}
+
+//Return one plant by id
+export function getPlantById(id: number): Plant | null {
+  const result = db.getFirstSync<Plant>(
+    "SELECT id, species_id AS speciesId, nickname, location, photo_url as photoUrl, pot_changed_at AS potChangedAt FROM plants WHERE id = ?",
+    id,
+  );
+  return result;
 }
