@@ -1,9 +1,12 @@
 import { Text } from "@/components/ui/text";
 import { usePlants } from "@/hooks/use-plants";
-import { ScrollView } from "react-native";
+import { useRouter } from "expo-router";
+import { Pressable, ScrollView } from "react-native";
 
 export default function ListOfPlants() {
   const { plants } = usePlants();
+
+  const router = useRouter();
 
   return (
     <ScrollView
@@ -11,8 +14,14 @@ export default function ListOfPlants() {
       contentContainerClassName="flex-grow items-center justify-center gap-4 p-4"
     >
       <Text>List of the plants:</Text>
+
       {plants.map((plant) => (
-        <Text key={plant.id}> Plant {plant.nickname} </Text>
+        <Pressable
+          key={plant.id}
+          onPress={() => router.push(`/plants/${plant.id}`)}
+        >
+          <Text> Plant {plant.nickname} </Text>
+        </Pressable>
       ))}
     </ScrollView>
   );
