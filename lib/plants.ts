@@ -36,3 +36,9 @@ export function getPlantById(id: number): Plant | null {
   );
   return result;
 }
+
+//Delete the plant from DataBase by id
+export function deletePlant(id: number): number {
+  const result = db.runSync("DELETE FROM plants WHERE id = ?", id);
+  return result.changes;
+}

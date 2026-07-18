@@ -1,19 +1,23 @@
+import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
-import { getPlantById, Plant } from "@/lib/plants";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { deletePlant, getPlantById, Plant } from "@/lib/plants";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { View } from "react-native";
 
 export default function PlantDetails() {
   const { id } = useLocalSearchParams();
   const plantId = Number(id);
+  const router = useRouter();
 
   const plant: Plant | null = getPlantById(plantId);
+
+  const handleDelete = () => {
+    deletePlant(plantId);
+    router.back();
+  };
+
   if (!plant) return <Text>Plant not found</Text>;
   return (
-    // <ScrollView
-    //   className="flex-1"
-    //   contentContainerClassName="flex-grow items-center justify-center gap-4 p-4"
-    // >
     <>
       <Stack.Screen options={{ title: plant.nickname }} />
 
@@ -35,8 +39,10 @@ export default function PlantDetails() {
         <Text className="text-muted-foreground">
           Species info: {plant.speciesId ?? "-"}
         </Text>
+        <Button onPress={handleDelete}>
+          <Text>Delete</Text>
+        </Button>
       </View>
     </>
-    //</ScrollView>
   );
 }
