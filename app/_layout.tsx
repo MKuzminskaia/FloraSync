@@ -3,6 +3,7 @@ import { PortalHost } from "@rn-primitives/portal";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
+import Toast from "react-native-toast-message";
 import "../global.css";
 
 import "../lib/db";
@@ -23,6 +24,7 @@ export default function RootLayout() {
       </Stack>
       <PortalHost />
       <StatusBar style="auto" />
+      <Toast />
     </ThemeProvider>
   );
 }

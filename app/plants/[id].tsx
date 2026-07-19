@@ -3,6 +3,7 @@ import { Text } from "@/components/ui/text";
 import { deletePlant, getPlantById, Plant } from "@/lib/plants";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { View } from "react-native";
+import Toast from "react-native-toast-message";
 
 export default function PlantDetails() {
   const { id } = useLocalSearchParams();
@@ -13,6 +14,10 @@ export default function PlantDetails() {
 
   const handleDelete = () => {
     deletePlant(plantId);
+    Toast.show({
+      type: "success",
+      text1: "Plant deleted",
+    });
     router.back();
   };
 
