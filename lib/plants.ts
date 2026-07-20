@@ -42,3 +42,16 @@ export function deletePlant(id: number): number {
   const result = db.runSync("DELETE FROM plants WHERE id = ?", id);
   return result.changes;
 }
+//Update the plant by id
+export function updatePlant(id: number, plant: Omit<Plant, "id">): number {
+  const result = db.runSync(
+    "UPDATE plants SET species_id = ?, nickname = ?, location = ?, photo_url = ?, pot_changed_at = ? WHERE id = ?",
+    plant.speciesId ?? null,
+    plant.nickname,
+    plant.location ?? null,
+    plant.photoUrl ?? null,
+    plant.potChangedAt ?? null,
+    id,
+  );
+  return result.changes;
+}
