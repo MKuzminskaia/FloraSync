@@ -51,6 +51,9 @@ export default function PlantDetails() {
         <Button onPress={() => router.push(`/plants/edit/${plantId}`)}>
           <Text>Edit</Text>
         </Button>
+        <Button onPress={() => router.push(`/plants/watering-log/${plantId}`)}>
+          <Text>Watering diary</Text>
+        </Button>
       </View>
     </>
   );
