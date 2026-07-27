@@ -5,6 +5,18 @@ export type ScheduleInput = {
   lastWateredAt: string | null;
 };
 
+export function parseIntervalDays(input: string): number | null {
+  const inputParsed = Number(input);
+  if (
+    input.trim() === "" ||
+    !Number.isInteger(inputParsed) ||
+    inputParsed <= 0
+  ) {
+    return null;
+  }
+  return inputParsed;
+}
+
 export function calculateNextWatering({
   intervalDays,
   lastWateredAt,

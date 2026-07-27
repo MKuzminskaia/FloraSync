@@ -15,11 +15,11 @@ export default function PlantDetails() {
 
   const handleDelete = () => {
     deletePlant(plantId);
+    router.back();
     Toast.show({
       type: "success",
       text1: "Plant deleted",
     });
-    router.back();
   };
 
   if (!activePlant) return <Text>Plant not found</Text>;
@@ -44,6 +44,12 @@ export default function PlantDetails() {
         </Text>
         <Text className="text-muted-foreground">
           Species info: {activePlant.speciesId ?? "-"}
+        </Text>
+        <Text className="text-muted-foreground">
+          Watering interval:{" "}
+          {activePlant.wateringIntervalDays === null
+            ? "-"
+            : activePlant.wateringIntervalDays + " days"}
         </Text>
         <Button onPress={handleDelete}>
           <Text>Delete</Text>
