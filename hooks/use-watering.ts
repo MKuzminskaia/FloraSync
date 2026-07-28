@@ -17,5 +17,7 @@ export function useWateringForPlant(id: number) {
     setLog(getWateringLogForPlant(id));
   };
 
-  return { log, addWatering };
+  const lastWateredAt: string | null = log[0]?.doneAt ?? null;
+
+  return { log, lastWateredAt, addWatering };
 }

@@ -21,7 +21,7 @@ export function calculateNextWatering({
   intervalDays,
   lastWateredAt,
 }: ScheduleInput): Date | null {
-  if (intervalDays === null || lastWateredAt === null) {
+  if (intervalDays === null || lastWateredAt === null || intervalDays <= 0) {
     return null;
   }
 
