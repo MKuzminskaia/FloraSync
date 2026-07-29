@@ -1,50 +1,51 @@
-# Welcome to your Expo app 👋
+# FloraSync
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native mobile app for managing houseplants - a solo personal 
+project built to explore modern mobile development with TypeScript, 
+Expo, and local SQLite.
 
-## Get started
+## Status
 
-1. Install dependencies
+Stage 1 (Basic MVP) - in active development.
 
-   ```bash
-   npm install
-   ```
+**Working:**
+- SQLite schema with foreign key integrity, CHECK constraints, cascade deletes
+- Repository pattern isolating UI from data source
+- Custom React hooks as data access layer
+- Full CRUD flow for plants and watering log
+- Toast notifications, Stack navigation
 
-2. Start the app
+**In progress:**
+- Unit tests (Jest + React Native Testing Library)
+- CI/CD (GitHub Actions)
+- Local notifications
 
-   ```bash
-   npx expo start
-   ```
+## Tech Stack
 
-In the output, you'll find options to open the app in a
+- TypeScript + React Native (Expo SDK 54)
+- expo-router (Stack navigation)
+- expo-sqlite (local persistence)
+- NativeWind (styling)
+- React Native Reusables (UI components)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Architecture
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+The project follows a repository pattern with clean separation between 
+UI, data access layer (custom hooks), and persistence (SQLite). 
+Design decisions are documented in `docs/decisions-plant-care-app.md` 
+as an Architecture Decision Record (ADR).
 
-## Get a fresh project
+## Running Locally
 
-When you're ready, run:
+Requires Node.js and Expo Go app on a physical device.
 
-```bash
-npm run reset-project
-```
+    npm install
+    npx expo start
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Scan QR code with Expo Go (iPhone or Android).
 
-## Learn more
+## Motivation
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Personal portfolio project. Built to solve my own problem (managing 
+plants across two locations) while learning React Native, TypeScript, 
+and mobile development practices from scratch.
