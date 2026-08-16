@@ -73,4 +73,12 @@ describe("calculateNextWatering", () => {
     };
     expect(calculateNextWatering(input)).toBeNull();
   });
+
+  test("returns null for the lastWateredAt 'yesterday'", () => {
+    const input: ScheduleInput = {
+      intervalDays: 7,
+      lastWateredAt: "yesterday",
+    };
+    expect(calculateNextWatering(input)).toBeNull();
+  });
 });

@@ -21,11 +21,19 @@ export function calculateNextWatering({
   intervalDays,
   lastWateredAt,
 }: ScheduleInput): Date | null {
-  if (intervalDays === null || lastWateredAt === null || intervalDays <= 0) {
+  if (lastWateredAt === null) {
+    return null;
+  }
+  const lastWateredDate = new Date(lastWateredAt);
+
+  if (
+    intervalDays === null ||
+    intervalDays <= 0 ||
+    Number.isNaN(lastWateredDate.getTime())
+  ) {
     return null;
   }
 
-  const lastWateredDate = new Date(lastWateredAt);
   const nextTimestamp = lastWateredDate.getTime() + intervalDays * MS_IN_DAY;
   return new Date(nextTimestamp);
 }
