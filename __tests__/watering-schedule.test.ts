@@ -1,9 +1,13 @@
 import type { ScheduleInput } from "@/lib/watering-schedule";
 import {
   calculateNextWatering,
+  daysUntilWatering,
   parseIntervalDays,
 } from "@/lib/watering-schedule";
 import { describe, expect, test } from "@jest/globals";
+
+const MS_IN_DAY = 24 * 60 * 60 * 1000;
+const MS_IN_HOUR = 60 * 60 * 1000;
 
 describe("parseIntervalDays", () => {
   test("returns 7 for the string '7'", () => {
@@ -80,5 +84,43 @@ describe("calculateNextWatering", () => {
       lastWateredAt: "yesterday",
     };
     expect(calculateNextWatering(input)).toBeNull();
+  });
+});
+
+describe("daysUntilWatering", () => {
+  test("returns 2 when the watering is 2 days ahead", () => {
+    const now = new Date("2026-08-17T10:00:00.000Z");
+    const nextWatering = new Date(now.getTime() + 2 * MS_IN_DAY);
+    expect(daysUntilWatering({ nextWatering, now })).toBe(2);
+  });
+
+  test("returns -3 when the deadline is three days overdue", () => {
+    const now = new Date("2026-08-17T10:00:00.000Z");
+    const nextWatering: Date = new Date(now.getTime() - 3 * MS_IN_DAY);
+    expect(daysUntilWatering({ nextWatering, now })).toBe(-3);
+  });
+
+  test("returns 0 when the day of watering is today", () => {
+    const now = new Date("2026-08-17T10:00:00.000Z");
+    const nextWatering = new Date(now.getTime());
+    expect(daysUntilWatering({ nextWatering, now })).toBe(0);
+  });
+
+  test("returns 0 when the watering is 13 hours away", () => {
+    const now = new Date("2026-08-17T10:00:00.000Z");
+    const nextWatering: Date = new Date(now.getTime() + 13 * MS_IN_HOUR);
+    expect(daysUntilWatering({ nextWatering, now })).toBe(0);
+  });
+
+  test("returns -1 when the watering was due 11 hours ago", () => {
+    const now = new Date("2026-08-17T10:00:00.000Z");
+    const nextWatering = new Date(now.getTime() - 11 * MS_IN_HOUR);
+    expect(daysUntilWatering({ nextWatering, now })).toBe(-1);
+  });
+
+  test("returns null, when nextWatering is null", () => {
+    const now = new Date("2026-08-17T10:00:00.000Z");
+    const nextWatering = null;
+    expect(daysUntilWatering({ nextWatering, now })).toBeNull();
   });
 });

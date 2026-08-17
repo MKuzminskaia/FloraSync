@@ -5,6 +5,11 @@ export type ScheduleInput = {
   lastWateredAt: string | null;
 };
 
+export type OverdueInput = {
+  nextWatering: Date | null;
+  now: Date;
+};
+
 export function parseIntervalDays(input: string): number | null {
   const inputParsed = Number(input);
   if (
@@ -36,4 +41,15 @@ export function calculateNextWatering({
 
   const nextTimestamp = lastWateredDate.getTime() + intervalDays * MS_IN_DAY;
   return new Date(nextTimestamp);
+}
+
+export function daysUntilWatering({
+  nextWatering,
+  now,
+}: OverdueInput): number | null {
+  if (nextWatering === null) {
+    return null;
+  }
+
+  return Math.floor((nextWatering.getTime() - now.getTime()) / MS_IN_DAY);
 }
