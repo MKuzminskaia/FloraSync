@@ -4,7 +4,7 @@ import { Text } from "@/components/ui/text";
 import { useRouter } from "expo-router";
 import { View } from "react-native";
 
-export default function firstStack() {
+export default function FirstStack() {
   const router = useRouter();
 
   return (
@@ -16,7 +16,7 @@ export default function firstStack() {
         <Text>Add a new plant</Text>
       </Button>
       <Button onPress={() => router.push("/calendar")}>
-        <Text>Show plant's calendar</Text>
+        <Text>Show plant`&apos calendar</Text>
       </Button>
       <Button onPress={() => router.push("/notifications")}>
         <Text>Show notifications</Text>
