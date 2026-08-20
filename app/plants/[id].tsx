@@ -4,7 +4,10 @@ import { usePlant } from "@/hooks/use-plants";
 import { useWateringForPlant } from "@/hooks/use-watering";
 import { deletePlant } from "@/lib/plants";
 import type { ScheduleInput } from "@/lib/watering-schedule";
-import { calculateNextWatering } from "@/lib/watering-schedule";
+import {
+  calculateNextWatering,
+  nextWateringInfo,
+} from "@/lib/watering-schedule";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { View } from "react-native";
 import Toast from "react-native-toast-message";
@@ -35,6 +38,8 @@ export default function PlantDetails() {
   };
 
   const nextWatering = calculateNextWatering(schedule);
+  const now = new Date();
+  const wateringInfo: string = nextWateringInfo({ nextWatering, now });
 
   return (
     <>
@@ -65,10 +70,7 @@ export default function PlantDetails() {
             : activePlant.wateringIntervalDays + " days"}
         </Text>
 
-        <Text className="text-muted-foreground">
-          Next watering:{" "}
-          {nextWatering === null ? "-" : nextWatering.toLocaleDateString()}
-        </Text>
+        <Text className="text-muted-foreground">{wateringInfo}</Text>
 
         <Button onPress={handleDelete}>
           <Text>Delete</Text>

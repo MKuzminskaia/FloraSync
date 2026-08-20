@@ -53,3 +53,18 @@ export function daysUntilWatering({
 
   return Math.floor((nextWatering.getTime() - now.getTime()) / MS_IN_DAY);
 }
+
+export function nextWateringInfo({ nextWatering, now }: OverdueInput): string {
+  if (nextWatering === null) return "No data";
+
+  const days = daysUntilWatering({ nextWatering, now });
+  const localDate = nextWatering.toLocaleDateString("en-GB");
+
+  if (days === null) return "No data";
+  if (days === 0) return `Watering is today: ${localDate}`;
+  if (days === 1) return `Watering is in ${days} day: ${localDate}`;
+  if (days === -1) return `Watering is ${-days} day overdue: ${localDate}`;
+  if (days < 0) return `Watering is ${-days} days overdue: ${localDate}`;
+
+  return `Watering is in ${days} days: ${localDate}`;
+}
