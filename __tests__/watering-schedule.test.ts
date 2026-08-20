@@ -2,6 +2,7 @@ import type { ScheduleInput } from "@/lib/watering-schedule";
 import {
   calculateNextWatering,
   daysUntilWatering,
+  nextWateringInfo,
   parseIntervalDays,
 } from "@/lib/watering-schedule";
 import { describe, expect, test } from "@jest/globals";
@@ -122,5 +123,53 @@ describe("daysUntilWatering", () => {
     const now = new Date("2026-08-17T10:00:00.000Z");
     const nextWatering = null;
     expect(daysUntilWatering({ nextWatering, now })).toBeNull();
+  });
+});
+
+describe("nextWateringInfo", () => {
+  test("returns 'No data' if nextWatering is null", () => {
+    const now = new Date("2026-08-20T10:00:00.000Z");
+    const nextWatering = null;
+    expect(nextWateringInfo({ nextWatering, now })).toBe("No data");
+  });
+
+  test("returns 'Watering is today: 20/08/2026' if next watering is the same date as today ", () => {
+    const now = new Date("2026-08-20T10:00:00.000Z");
+    const nextWatering = new Date("2026-08-20T10:00:00.000Z");
+    expect(nextWateringInfo({ nextWatering, now })).toBe(
+      "Watering is today: 20/08/2026",
+    );
+  });
+
+  test("returns 'Watering is in 1 day: 21/08/2026' if next watering is tomorrow", () => {
+    const now = new Date("2026-08-20T10:00:00.000Z");
+    const nextWatering = new Date("2026-08-21T10:00:00.000Z");
+    expect(nextWateringInfo({ nextWatering, now })).toBe(
+      "Watering is in 1 day: 21/08/2026",
+    );
+  });
+
+  test("returns 'Watering is 1 day overdue: 19/08/2026' if next watering was yesterday", () => {
+    const now = new Date("2026-08-20T10:00:00.000Z");
+    const nextWatering = new Date("2026-08-19T10:00:00.000Z");
+    expect(nextWateringInfo({ nextWatering, now })).toBe(
+      "Watering is 1 day overdue: 19/08/2026",
+    );
+  });
+
+  test("returns 'Watering is 2 days overdue: 18/08/2026' if next watering had to be 2 days ago", () => {
+    const now = new Date("2026-08-20T10:00:00.000Z");
+    const nextWatering = new Date("2026-08-18T10:00:00.000Z");
+    expect(nextWateringInfo({ nextWatering, now })).toBe(
+      "Watering is 2 days overdue: 18/08/2026",
+    );
+  });
+
+  test("returns 'Watering is in 5 days: 25/08/2026' if next watering will be in 5 days", () => {
+    const now = new Date("2026-08-20T10:00:00.000Z");
+    const nextWatering = new Date("2026-08-25T10:00:00.000Z");
+    expect(nextWateringInfo({ nextWatering, now })).toBe(
+      "Watering is in 5 days: 25/08/2026",
+    );
   });
 });
