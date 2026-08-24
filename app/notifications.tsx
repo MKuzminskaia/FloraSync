@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
-import { requestNotificationPermission } from "@/lib/notifications";
+import {
+  requestNotificationPermission,
+  scheduleTestNotification,
+} from "@/lib/notifications";
 import { View } from "react-native";
 import Toast from "react-native-toast-message";
 
@@ -18,11 +21,24 @@ export default function Notifications() {
       text1: statusText,
     });
   };
+
+  const handleScheduleTest = async () => {
+    const id = await scheduleTestNotification();
+    Toast.show({
+      type: "success",
+      text1: `${id}`,
+    });
+  };
+
   return (
     <View className="w-full rounded-2xl bg-card p-4 gap-2 shadow-sm">
       <Text>Notifications</Text>
       <Button onPress={handleRequest}>
         <Text>Request</Text>
+      </Button>
+
+      <Button onPress={handleScheduleTest}>
+        <Text>Schedule</Text>
       </Button>
     </View>
   );

@@ -1,12 +1,13 @@
+import "@/global.css";
 import { ThemeProvider } from "@react-navigation/native";
 import { PortalHost } from "@rn-primitives/portal";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import Toast from "react-native-toast-message";
-import "../global.css";
 
-import "../lib/db";
+import "@/lib/db";
+import "@/lib/notifications";
 
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { NAV_THEME } from "@/lib/theme";
