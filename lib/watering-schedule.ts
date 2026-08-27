@@ -1,3 +1,5 @@
+import { isValidDate } from "@/lib/date-utils";
+
 const MS_IN_DAY = 24 * 60 * 60 * 1000;
 
 export type ScheduleInput = {
@@ -34,7 +36,7 @@ export function calculateNextWatering({
   if (
     intervalDays === null ||
     intervalDays <= 0 ||
-    Number.isNaN(lastWateredDate.getTime())
+    !isValidDate(lastWateredDate)
   ) {
     return null;
   }

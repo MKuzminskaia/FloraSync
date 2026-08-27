@@ -27,6 +27,13 @@ export function initDb() {
               plant_id INTEGER NOT NULL REFERENCES plants(id) ON DELETE CASCADE, 
               type TEXT NOT NULL CHECK(type IN ('watering', 'misting')), 
               done_at TEXT NOT NULL);
+        CREATE TABLE IF NOT EXISTS reminders (
+              id INTEGER PRIMARY KEY,
+              plant_id INTEGER NOT NULL REFERENCES plants(id) ON DELETE CASCADE,
+              type TEXT NOT NULL CHECK(type IN ('watering', 'feeding', 'repotting')),
+              due_at TEXT NOT NULL,
+              notification_id TEXT,
+              CONSTRAINT id_unique UNIQUE(plant_id, type));
         `,
   );
 }

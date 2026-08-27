@@ -16,7 +16,7 @@ export default function FirstStack() {
         <Text>Add a new plant</Text>
       </Button>
       <Button onPress={() => router.push("/calendar")}>
-        <Text>Show plant`&apos calendar</Text>
+        <Text>Show plant`s calendar</Text>
       </Button>
       <Button onPress={() => router.push("/notifications")}>
         <Text>Show notifications</Text>
